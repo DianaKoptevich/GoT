@@ -63,8 +63,6 @@ def index():
         results = search_notion(query)
     return render_template_string(INDEX_HTML, results=results)
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     app.run(host="0.0.0.0", port=port, debug=False)
