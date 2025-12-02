@@ -23,7 +23,7 @@ input[type="submit"]:hover { background: #0056b3; }
 h2, h3 { color: #ffffff; }
 ul { list-style: none; padding: 0; }
 li { margin: 10px 0; padding: 15px; background: #2a2a2a; border-radius: 8px; border-left: 4px solid #fae3af; }
-a { color: #4dabf7; text-decoration: none; font-size: 16px; }
+a { color: #fae3af; text-decoration: none; font-size: 16px; }
 a:hover { color: #ffffff; text-decoration: underline; }
 </style>
 <title>Поиск по Notion</title>
