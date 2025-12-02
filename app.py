@@ -1,3 +1,4 @@
+import os
 import requests
 from flask import Flask, request, render_template_string
 
@@ -44,16 +45,13 @@ def search_notion(query):
         return []
 
     for res in response.json().get("results", []):
-        title = ""
+        title = "Без названия"
         props = res.get("properties")
-        # Try to get title from page properties or from plain title
-        if props and "title" in props:
-            title_prop = props["title"]
-            if title_prop["type"] == "title" and title_prop["title"]:
-                title = title_prop["title"][0]["plain_text"]
-        if not title:
-            # fallback title
-            title = res.get("title", [{"plain_text": "Без названия"}])[0]["plain_text"] if "title" in res else "Без названия"
+        if props:
+            for key, prop in props.items():
+                if prop.get("type") == "title" and prop.get("title"):
+                    title = "".join([t.get("plain_text", "") for t in prop["title"]])
+                    break
         results.append({"id": res["id"], "title": title})
     return results
 
@@ -65,5 +63,8 @@ def index():
         results = search_notion(query)
     return render_template_string(INDEX_HTML, results=results)
 
+# if __name__ == "__main__":
+#     app.run(debug=True)
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port, debug=False)
